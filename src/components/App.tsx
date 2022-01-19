@@ -1,12 +1,13 @@
 import * as React from "react";
 import AutoComplete from "./AutoComplete";
 
-interface AppProps {
-  className?: string;
-}
-class App extends React.Component<AppProps> {
+class App extends React.Component {
   render(): React.ReactNode {
-    return <AutoComplete />;
+    return (
+      <div className="app">
+        <AutoComplete />
+      </div>
+    );
   }
 }
 
