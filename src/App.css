@@ -18,19 +18,27 @@ body {
   cursor: pointer;
   color: white;
   padding: 8px;
+  font-size: 14px;
+  color: black;
+  border: 1px solid black;
 }
 
 .info {
   background-color: DodgerBlue;
+  border-color: dodgerblue;
+  color: white;
 }
 
 .info:hover {
   background-color: rgb(109, 180, 252);
+  border-color: rgb(109, 180, 252);
 }
 
 .input-text {
   margin-right: 10px;
   padding: 8px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
 }
 
 .autoComplete {
