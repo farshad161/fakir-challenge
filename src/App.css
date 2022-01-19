@@ -1,1 +1,33 @@
 @import "~antd/dist/antd.css";
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.app {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  height: 100%;
+}
+
+.ant-layout {
+  height: 100%;
+}
+
+.site-layout-content {
+  min-height: 280px;
+  padding: 24px;
+  background: #fff;
+  height: 100%;
+}
+
+.auto-complete .ant-select {
+  width: 100%;
+  padding-right: 10px;
+}
