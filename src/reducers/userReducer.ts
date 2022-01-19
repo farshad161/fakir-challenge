@@ -1,11 +1,11 @@
 
-import { ActionTypes } from "../actions/types";
-import { Users, FetchUsersAction } from '../actions';
+import { RequestTypes } from "../sagas/types";
+import { Users } from '../actions';
 
 
-export const userReducer = (state: Users[], action: FetchUsersAction) => {
+export const userReducer = (state: Users[], action: any) => {
     switch (action.type) {
-        case ActionTypes.fetchUsersRequest:
+        case RequestTypes.fetchUserRequest:
             return { users: action.payload };
         default:
             return state;

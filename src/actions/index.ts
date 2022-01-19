@@ -2,7 +2,6 @@ import { ActionTypes } from "./types";
 
 
 
-// const url = 'https://jsonplaceholder.typicode.com/users';
 
 export interface Users {
     id: number,
@@ -11,14 +10,8 @@ export interface Users {
 }
 
 export interface FetchUsersAction {
-    type: ActionTypes.fetchUsersRequest,
+    type: ActionTypes.fetchUsers,
     payload: Users[]
 }
 
-export const fetchUsers = () => {
-
-    return {
-        type: ActionTypes.fetchUsersRequest,
-        payload: []
-    }
-}
+export const fetchUsers = () => ({ type: ActionTypes.fetchUsers })
