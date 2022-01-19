@@ -6,7 +6,13 @@ class AutoComplete extends Component {
     const items: string[] = ["ali", "jafar"];
     return (
       <div className="autoComplete">
-        <input className="input-text" type="text" name="user" id="user" />
+        <input
+          className="input-text"
+          autoComplete="off"
+          type="text"
+          name="user"
+          id="user"
+        />
         <input className="button info" type="button" value="Submit" />
         {!!items.length ? <List items={items} /> : null}
       </div>
