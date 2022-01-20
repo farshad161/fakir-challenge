@@ -4,21 +4,47 @@ import List from "./List";
 import { fetchUserRequest } from "../actions";
 import { FetchUserRequest, UserState } from "../types/user";
 import { appState } from "../reducers/rootReducer";
+import { IUser } from "../types/user";
 
 interface AutoCompleteProps {
   fetchUserRequest: () => FetchUserRequest;
-  users: UserState;
+  user: UserState;
 }
-class AutoComplete extends Component<AutoCompleteProps> {
+
+interface AutoCompleteState {
+  sugestedUsers: IUser[];
+  pattern: string;
+}
+class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
+  constructor(props: AutoCompleteProps) {
+    super(props);
+    this.state = {
+      sugestedUsers: [],
+      pattern: "",
+    };
+  }
   componentDidMount() {
     this.props.fetchUserRequest();
   }
 
-  handleChange() {
-    console.log(this.props.users);
+  handleChange(event: React.FormEvent<HTMLInputElement>) {
+    const input = event.currentTarget.value;
+    const matched = this.getMatched(input);
+    this.setState({ sugestedUsers: matched, pattern: input });
+  }
+
+  /**
+   *
+   * @param pattern
+   * @returns all the users<IUser> matched by the input value.
+   */
+  private getMatched(pattern: string): IUser[] {
+    if (!!!pattern) return [];
+    return this.props.user.users.filter((item: IUser) =>
+      item.username.startsWith(pattern)
+    );
   }
   render(): React.ReactNode {
-    const items: string[] = ["ali", "jafar"];
     return (
       <div className="autoComplete">
         <input
@@ -27,10 +53,13 @@ class AutoComplete extends Component<AutoCompleteProps> {
           type="text"
           onChange={this.handleChange.bind(this)}
           name="user"
+          value={this.state.pattern}
           id="user"
         />
         <input className="button info" type="button" value="Submit" />
-        {!!items.length ? <List items={items} /> : null}
+        {!!this.state.sugestedUsers.length ? (
+          <List items={this.state.sugestedUsers} />
+        ) : null}
       </div>
     );
   }
@@ -40,6 +69,7 @@ const mapDispatchToProps = {
   fetchUserRequest,
 };
 const mapStateToProps = (state: appState) => ({
-  users: state.user,
+  user: state.user,
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(AutoComplete);

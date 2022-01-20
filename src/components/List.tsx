@@ -1,12 +1,13 @@
 import * as React from "react";
+import { IUser } from "../types/user";
 import Item from "./Item";
 
 interface ListProps {
-  items: string[];
+  items: IUser[];
 }
 class List extends React.Component<ListProps> {
-  renderItems(list: string[]) {
-    return list.map((item) => <Item name={item} />);
+  renderItems(list: IUser[]) {
+    return list.map((item) => <Item key={item.id} name={item.username} />);
   }
   render(): React.ReactNode {
     return <div className="list">{this.renderItems(this.props.items)}</div>;

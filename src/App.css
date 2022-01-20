@@ -51,7 +51,7 @@ body {
 
 .list {
   margin-top: 8px;
-  border: 1px dashed rgb(180, 179, 179);
+  border: 1px solid rgb(180, 179, 179);
   border-radius: 5px;
   padding: 5px;
 }
