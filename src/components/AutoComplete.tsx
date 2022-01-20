@@ -49,6 +49,7 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
       <div className="autoComplete">
         <input
           className="input-text"
+          placeholder="Username"
           autoComplete="off"
           type="text"
           onChange={this.handleChange.bind(this)}
