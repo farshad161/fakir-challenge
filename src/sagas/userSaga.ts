@@ -1,26 +1,30 @@
-import { all, put, call, takeEvery } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import axios, { AxiosResponse } from 'axios';
-import { Users } from '../actions';
-import { RequestTypes } from './types';
-import { ActionTypes } from '../actions/types';
+import { FETCH_USER_REQUEST } from '../actions/actionTypes';
+import { IUser } from '../types/user';
+import { fetchUserFailure, fetchUserSuccess } from '../actions';
 
+const URL = 'https://jsonplaceholder.typicode.com/users';
 
-const url = 'https://jsonplaceholder.typicode.com/users';
+const getUsers = () => axios.get<IUser[]>(URL);
 
-const getUsers = () => axios.get<Users[]>(url);
+function* fetchUserSaga() {
+    try {
 
+        const response: AxiosResponse<IUser[]> = yield call(getUsers);
+        const { data } = response;
+        yield put(fetchUserSuccess({ users: data }))
 
-function* fetchUsersAsync() {
+    } catch (e: unknown) {
 
-    const response: AxiosResponse<Users> = yield call(getUsers);
-    yield put({ type: RequestTypes.fetchUserRequest, payload: response.data })
-
+        if (e instanceof Error)
+            yield put(fetchUserFailure({ error: e.message }))
+    }
 }
 
-function* actionWatcher() {
-    yield takeEvery(ActionTypes.fetchUsers, fetchUsersAsync)
+function* userSaga() {
+
+    yield all([takeLatest(FETCH_USER_REQUEST, fetchUserSaga)])
 }
 
-export function* usersSaga() {
-    yield all([actionWatcher()])
-}
+export default userSaga;

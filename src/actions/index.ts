@@ -1,17 +1,18 @@
-import { ActionTypes } from "./types";
+import { FetchUSerFailure, FetchUserFailurePayload, FetchUserRequest, FetchUserSuccess, FetchUserSuccessPayload } from "../types/user";
+import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS } from "./actionTypes";
 
 
+export const fetchUserRequest = (): FetchUserRequest => ({
+    type: FETCH_USER_REQUEST
+})
 
+export const fetchUserSuccess = (payload: FetchUserSuccessPayload): FetchUserSuccess => ({
+    type: FETCH_USER_SUCCESS,
+    payload,
+})
 
-export interface Users {
-    id: number,
-    name: string,
-    username: string,
-}
+export const fetchUserFailure = (payload: FetchUserFailurePayload): FetchUSerFailure => ({
 
-export interface FetchUsersAction {
-    type: ActionTypes.fetchUsers,
-    payload: Users[]
-}
-
-export const fetchUsers = () => ({ type: ActionTypes.fetchUsers })
+    type: FETCH_USER_FAILURE,
+    payload
+})
