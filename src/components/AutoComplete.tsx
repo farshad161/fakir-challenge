@@ -28,6 +28,7 @@ interface AutoCompleteProps {
   setUserTabIndex: (tabIndex: SetUserTabIndexPayload) => SetUserTabIndex;
 }
 
+const INITIAL_TAB_INDEX = -1;
 class AutoComplete extends Component<AutoCompleteProps> {
   componentDidMount() {
     this.props.fetchUserRequest();
@@ -59,7 +60,12 @@ class AutoComplete extends Component<AutoCompleteProps> {
 
     if (event.key === "Enter") {
       this.props.setUserPattern({ pattern: suggestedUsers[tabIndex].username });
-      this.props.setSuggestedUsers({ suggestedUsers: [] });
+    }
+
+    if (event.key === "Backspace") {
+      this.props.setUserTabIndex({
+        tabIndex: INITIAL_TAB_INDEX,
+      });
     }
   }
   /**

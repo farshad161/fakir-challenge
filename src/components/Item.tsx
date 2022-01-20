@@ -28,8 +28,9 @@ class Item extends React.Component<ItemProps> {
    */
   handleClick(event: React.MouseEvent<HTMLDivElement>): void {
     const username = (event.target as Element).id;
+
+    console.log(event.target);
     this.props.setUserPattern({ pattern: username });
-    this.props.setSuggestedUsers({ suggestedUsers: [] });
   }
 
   /**
@@ -46,7 +47,7 @@ class Item extends React.Component<ItemProps> {
     return (
       <div id={value}>
         <b>{head}</b>
-        <span>{tail}</span>
+        <>{tail}</>
       </div>
     );
   }

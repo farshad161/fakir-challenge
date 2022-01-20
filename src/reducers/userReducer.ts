@@ -29,7 +29,7 @@ export const userReducer = (state = initialState, action: UserActions) => {
             }
 
         case SET_USER_PATTERN:
-            return { ...state, pattern: action.payload.pattern }
+            return { ...state, pattern: action.payload.pattern, suggestedUsers: [] }
 
         case SET_SUGGESTED_USERS:
             return { ...state, suggestedUsers: action.payload.suggestedUsers }
