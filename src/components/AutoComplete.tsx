@@ -1,26 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import List from "./List";
-import { fetchUserRequest } from "../actions";
-import { FetchUserRequest, UserState } from "../types/user";
+import { fetchUserRequest, setUserPattern } from "../actions";
+import {
+  FetchUserRequest,
+  SetPatternPayload,
+  SetUserPattern,
+  UserState,
+} from "../types/user";
 import { appState } from "../reducers/rootReducer";
 import { IUser } from "../types/user";
 
 interface AutoCompleteProps {
   fetchUserRequest: () => FetchUserRequest;
   user: UserState;
+  setUserPattern: (pattern: SetPatternPayload) => SetUserPattern;
 }
 
 interface AutoCompleteState {
   sugestedUsers: IUser[];
-  pattern: string;
 }
 class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
   constructor(props: AutoCompleteProps) {
     super(props);
     this.state = {
       sugestedUsers: [],
-      pattern: "",
     };
   }
   componentDidMount() {
@@ -29,8 +33,12 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
 
   handleChange(event: React.FormEvent<HTMLInputElement>) {
     const input = event.currentTarget.value;
+
+    // setting pattern in application store
+    this.props.setUserPattern({ pattern: input });
+
     const matched = this.getMatched(input);
-    this.setState({ sugestedUsers: matched, pattern: input });
+    this.setState({ sugestedUsers: matched });
   }
 
   /**
@@ -44,6 +52,7 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
       item.username.toLowerCase().startsWith(pattern.toLowerCase())
     );
   }
+
   render(): React.ReactNode {
     return (
       <div className="autoComplete">
@@ -54,7 +63,7 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
           type="text"
           onChange={this.handleChange.bind(this)}
           name="user"
-          value={this.state.pattern}
+          value={this.props.user.pattern}
           id="user"
         />
         <input className="button info" type="button" value="Submit" />
@@ -68,6 +77,7 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
 
 const mapDispatchToProps = {
   fetchUserRequest,
+  setUserPattern,
 };
 const mapStateToProps = (state: appState) => ({
   user: state.user,

@@ -1,5 +1,5 @@
-import { FetchUSerFailure, FetchUserFailurePayload, FetchUserRequest, FetchUserSuccess, FetchUserSuccessPayload } from "../types/user";
-import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS } from "./actionTypes";
+import { FetchUSerFailure, FetchUserFailurePayload, FetchUserRequest, FetchUserSuccess, FetchUserSuccessPayload, SetPatternPayload, SetUserPattern } from "../types/user";
+import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_USER_PATTERN } from "./actionTypes";
 
 
 export const fetchUserRequest = (): FetchUserRequest => ({
@@ -14,5 +14,10 @@ export const fetchUserSuccess = (payload: FetchUserSuccessPayload): FetchUserSuc
 export const fetchUserFailure = (payload: FetchUserFailurePayload): FetchUSerFailure => ({
 
     type: FETCH_USER_FAILURE,
+    payload
+})
+
+export const setUserPattern = (payload: SetPatternPayload): SetUserPattern => ({
+    type: SET_USER_PATTERN,
     payload
 })
