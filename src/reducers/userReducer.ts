@@ -1,7 +1,7 @@
 import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS } from "../actions/actionTypes";
-import { UserActions } from "../types/user";
+import { UserActions, UserState } from "../types/user";
 
-const initialState = {
+const initialState: UserState = {
     pending: false,
     users: [],
     error: null

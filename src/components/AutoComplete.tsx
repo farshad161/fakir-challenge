@@ -2,14 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import List from "./List";
 import { fetchUserRequest } from "../actions";
-import { FetchUserRequest } from "../types/user";
+import { FetchUserRequest, UserState } from "../types/user";
+import { appState } from "../reducers/rootReducer";
 
 interface AutoCompleteProps {
   fetchUserRequest: () => FetchUserRequest;
+  users: UserState;
 }
 class AutoComplete extends Component<AutoCompleteProps> {
   componentDidMount() {
     this.props.fetchUserRequest();
+  }
+
+  handleChange() {
+    console.log(this.props.users);
   }
   render(): React.ReactNode {
     const items: string[] = ["ali", "jafar"];
@@ -19,6 +25,7 @@ class AutoComplete extends Component<AutoCompleteProps> {
           className="input-text"
           autoComplete="off"
           type="text"
+          onChange={this.handleChange.bind(this)}
           name="user"
           id="user"
         />
@@ -32,5 +39,7 @@ class AutoComplete extends Component<AutoCompleteProps> {
 const mapDispatchToProps = {
   fetchUserRequest,
 };
-
-export default connect(null, mapDispatchToProps)(AutoComplete);
+const mapStateToProps = (state: appState) => ({
+  users: state.user,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AutoComplete);
