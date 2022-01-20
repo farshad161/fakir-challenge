@@ -1,5 +1,8 @@
-import { FetchUSerFailure, FetchUserFailurePayload, FetchUserRequest, FetchUserSuccess, FetchUserSuccessPayload, SetPatternPayload, SetUserPattern } from "../types/user";
-import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_USER_PATTERN } from "./actionTypes";
+import {
+    FetchUSerFailure, FetchUserFailurePayload, FetchUserRequest, FetchUserSuccess,
+    FetchUserSuccessPayload, SetUserPatternPayload, SetUserPattern, SetSuggestedUsers, setSuggestedUsersPayload
+} from "../types/user";
+import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_SUGGESTED_USERS, SET_USER_PATTERN } from "./actionTypes";
 
 
 export const fetchUserRequest = (): FetchUserRequest => ({
@@ -17,7 +20,13 @@ export const fetchUserFailure = (payload: FetchUserFailurePayload): FetchUSerFai
     payload
 })
 
-export const setUserPattern = (payload: SetPatternPayload): SetUserPattern => ({
+export const setUserPattern = (payload: SetUserPatternPayload): SetUserPattern => ({
     type: SET_USER_PATTERN,
     payload
 })
+
+export const setSuggestedUsers = (payload: setSuggestedUsersPayload): SetSuggestedUsers => ({
+    type: SET_SUGGESTED_USERS,
+    payload
+})
+

@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import List from "./List";
-import { fetchUserRequest, setUserPattern } from "../actions";
+import {
+  fetchUserRequest,
+  setUserPattern,
+  setSuggestedUsers,
+} from "../actions";
 import {
   FetchUserRequest,
-  SetPatternPayload,
+  SetUserPatternPayload,
   SetUserPattern,
   UserState,
+  setSuggestedUsersPayload,
+  SetSuggestedUsers,
 } from "../types/user";
 import { appState } from "../reducers/rootReducer";
 import { IUser } from "../types/user";
@@ -14,19 +20,11 @@ import { IUser } from "../types/user";
 interface AutoCompleteProps {
   fetchUserRequest: () => FetchUserRequest;
   user: UserState;
-  setUserPattern: (pattern: SetPatternPayload) => SetUserPattern;
+  setUserPattern: (pattern: SetUserPatternPayload) => SetUserPattern;
+  setSuggestedUsers: (users: setSuggestedUsersPayload) => SetSuggestedUsers;
 }
 
-interface AutoCompleteState {
-  sugestedUsers: IUser[];
-}
-class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
-  constructor(props: AutoCompleteProps) {
-    super(props);
-    this.state = {
-      sugestedUsers: [],
-    };
-  }
+class AutoComplete extends Component<AutoCompleteProps> {
   componentDidMount() {
     this.props.fetchUserRequest();
   }
@@ -38,7 +36,8 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
     this.props.setUserPattern({ pattern: input });
 
     const matched = this.getMatched(input);
-    this.setState({ sugestedUsers: matched });
+    this.props.setSuggestedUsers({ suggestedUsers: matched });
+    // this.setState({ sugestedUsers: matched });
   }
 
   /**
@@ -67,9 +66,7 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
           id="user"
         />
         <input className="button info" type="button" value="Submit" />
-        {!!this.state.sugestedUsers.length ? (
-          <List items={this.state.sugestedUsers} />
-        ) : null}
+        {!!this.props.user.suggestedUsers.length ? <List /> : null}
       </div>
     );
   }
@@ -78,6 +75,7 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
 const mapDispatchToProps = {
   fetchUserRequest,
   setUserPattern,
+  setSuggestedUsers,
 };
 const mapStateToProps = (state: appState) => ({
   user: state.user,

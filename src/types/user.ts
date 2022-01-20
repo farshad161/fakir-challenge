@@ -1,4 +1,4 @@
-import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_USER_PATTERN } from '../actions/actionTypes';
+import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_SUGGESTED_USERS, SET_USER_PATTERN } from '../actions/actionTypes';
 
 export interface IUser {
     id: number,
@@ -11,7 +11,9 @@ export interface UserState {
     pending: boolean,
     users: IUser[],
     error: string | null,
-    pattern: string
+    pattern: string,
+    suggestedUsers: IUser[]
+
 }
 
 export interface FetchUserSuccessPayload {
@@ -22,8 +24,12 @@ export interface FetchUserFailurePayload {
     error: string
 }
 
-export interface SetPatternPayload {
+export interface SetUserPatternPayload {
     pattern: string
+}
+
+export interface setSuggestedUsersPayload {
+    suggestedUsers: IUser[]
 }
 
 export type FetchUserRequest = {
@@ -43,7 +49,12 @@ export type FetchUSerFailure = {
 
 export type SetUserPattern = {
     type: typeof SET_USER_PATTERN;
-    payload: SetPatternPayload;
+    payload: SetUserPatternPayload;
 }
 
-export type UserActions = FetchUSerFailure | FetchUserSuccess | FetchUserRequest | SetUserPattern;
+export type SetSuggestedUsers = {
+    type: typeof SET_SUGGESTED_USERS,
+    payload: setSuggestedUsersPayload
+}
+
+export type UserActions = FetchUSerFailure | FetchUserSuccess | FetchUserRequest | SetUserPattern | SetSuggestedUsers;
