@@ -9,8 +9,12 @@ interface ListProps {
 }
 class List extends React.Component<ListProps> {
   renderItems(list: IUser[]) {
-    return list.map((item) => <Item key={item.id} name={item.username} />);
+    let index = 0;
+    return list.map((item) => {
+      return <Item key={item.id} name={item.username} tabIndex={index++} />;
+    });
   }
+
   render(): React.ReactNode {
     return (
       <div className="list">

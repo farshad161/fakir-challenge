@@ -67,3 +67,7 @@ body {
 .item:last-child {
   border-bottom: none;
 }
+
+.selected {
+  background-color: dodgerblue !important;
+}

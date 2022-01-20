@@ -5,17 +5,21 @@ import {
   UserState,
   SetUserPatternPayload,
   SetUserPattern,
-  setSuggestedUsersPayload,
+  SetSuggestedUsersPayload,
   SetSuggestedUsers,
+  SetUserTabIndexPayload,
+  SetUserTabIndex,
 } from "../types/user";
-import { setUserPattern, setSuggestedUsers } from "../actions";
+import { setUserPattern, setSuggestedUsers, setUserTabIndex } from "../actions";
 
 interface ItemProps {
   name: string;
   key: number;
   user: UserState;
+  tabIndex: number;
   setUserPattern: (pattern: SetUserPatternPayload) => SetUserPattern;
-  setSuggestedUsers: (users: setSuggestedUsersPayload) => SetSuggestedUsers;
+  setSuggestedUsers: (users: SetSuggestedUsersPayload) => SetSuggestedUsers;
+  setUserTabIndex: (tabIndex: SetUserTabIndexPayload) => SetUserTabIndex;
 }
 class Item extends React.Component<ItemProps> {
   /**
@@ -27,6 +31,7 @@ class Item extends React.Component<ItemProps> {
     this.props.setUserPattern({ pattern: username });
     this.props.setSuggestedUsers({ suggestedUsers: [] });
   }
+
   /**
    *
    * @returns div<JSX> that the first n characters were bolded base on the user input pattern
@@ -53,7 +58,12 @@ class Item extends React.Component<ItemProps> {
     return (
       <div
         key={this.props.name}
-        className="item"
+        tabIndex={this.props.tabIndex}
+        className={
+          this.props.tabIndex === this.props.user.tabIndex
+            ? "item selected"
+            : "item"
+        }
         onClick={this.handleClick.bind(this)}
       >
         {this.makeHeadBolded()}
@@ -68,5 +78,6 @@ const mapStateToProps = (state: appState) => ({
 const mapDispatchToProps = {
   setUserPattern,
   setSuggestedUsers,
+  setUserTabIndex,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Item);

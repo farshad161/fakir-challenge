@@ -5,14 +5,17 @@ import {
   fetchUserRequest,
   setUserPattern,
   setSuggestedUsers,
+  setUserTabIndex,
 } from "../actions";
 import {
   FetchUserRequest,
   SetUserPatternPayload,
   SetUserPattern,
   UserState,
-  setSuggestedUsersPayload,
+  SetSuggestedUsersPayload,
   SetSuggestedUsers,
+  SetUserTabIndex,
+  SetUserTabIndexPayload,
 } from "../types/user";
 import { appState } from "../reducers/rootReducer";
 import { IUser } from "../types/user";
@@ -21,7 +24,8 @@ interface AutoCompleteProps {
   fetchUserRequest: () => FetchUserRequest;
   user: UserState;
   setUserPattern: (pattern: SetUserPatternPayload) => SetUserPattern;
-  setSuggestedUsers: (users: setSuggestedUsersPayload) => SetSuggestedUsers;
+  setSuggestedUsers: (users: SetSuggestedUsersPayload) => SetSuggestedUsers;
+  setUserTabIndex: (tabIndex: SetUserTabIndexPayload) => SetUserTabIndex;
 }
 
 class AutoComplete extends Component<AutoCompleteProps> {
@@ -37,9 +41,27 @@ class AutoComplete extends Component<AutoCompleteProps> {
 
     const matched = this.getMatched(input);
     this.props.setSuggestedUsers({ suggestedUsers: matched });
-    // this.setState({ sugestedUsers: matched });
   }
 
+  handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    const { tabIndex, suggestedUsers } = this.props.user;
+
+    if (event.key === "ArrowDown") {
+      this.props.setUserTabIndex({
+        tabIndex: tabIndex >= suggestedUsers.length - 1 ? 0 : tabIndex + 1,
+      });
+    }
+    if (event.key === "ArrowUp") {
+      this.props.setUserTabIndex({
+        tabIndex: tabIndex <= 0 ? suggestedUsers.length - 1 : tabIndex - 1,
+      });
+    }
+
+    if (event.key === "Enter") {
+      this.props.setUserPattern({ pattern: suggestedUsers[tabIndex].username });
+      this.props.setSuggestedUsers({ suggestedUsers: [] });
+    }
+  }
   /**
    *
    * @param pattern
@@ -64,6 +86,7 @@ class AutoComplete extends Component<AutoCompleteProps> {
           name="user"
           value={this.props.user.pattern}
           id="user"
+          onKeyDown={this.handleKeyDown.bind(this)}
         />
         <input className="button info" type="button" value="Submit" />
         {!!this.props.user.suggestedUsers.length ? <List /> : null}
@@ -76,6 +99,7 @@ const mapDispatchToProps = {
   fetchUserRequest,
   setUserPattern,
   setSuggestedUsers,
+  setUserTabIndex,
 };
 const mapStateToProps = (state: appState) => ({
   user: state.user,

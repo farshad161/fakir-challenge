@@ -1,4 +1,4 @@
-import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_SUGGESTED_USERS, SET_USER_PATTERN } from '../actions/actionTypes';
+import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_SUGGESTED_USERS, SET_USER_PATTERN, SET_USER_TAB_INDEX } from '../actions/actionTypes';
 
 export interface IUser {
     id: number,
@@ -13,7 +13,7 @@ export interface UserState {
     error: string | null,
     pattern: string,
     suggestedUsers: IUser[]
-
+    tabIndex: number
 }
 
 export interface FetchUserSuccessPayload {
@@ -28,8 +28,12 @@ export interface SetUserPatternPayload {
     pattern: string
 }
 
-export interface setSuggestedUsersPayload {
+export interface SetSuggestedUsersPayload {
     suggestedUsers: IUser[]
+}
+
+export interface SetUserTabIndexPayload {
+    tabIndex: number
 }
 
 export type FetchUserRequest = {
@@ -54,7 +58,13 @@ export type SetUserPattern = {
 
 export type SetSuggestedUsers = {
     type: typeof SET_SUGGESTED_USERS,
-    payload: setSuggestedUsersPayload
+    payload: SetSuggestedUsersPayload
 }
 
-export type UserActions = FetchUSerFailure | FetchUserSuccess | FetchUserRequest | SetUserPattern | SetSuggestedUsers;
+export type SetUserTabIndex = {
+    type: typeof SET_USER_TAB_INDEX,
+    payload: SetUserTabIndexPayload
+}
+
+export type UserActions = FetchUSerFailure | FetchUserSuccess | FetchUserRequest
+    | SetUserPattern | SetSuggestedUsers | SetUserTabIndex;

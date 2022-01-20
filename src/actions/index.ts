@@ -1,8 +1,8 @@
 import {
     FetchUSerFailure, FetchUserFailurePayload, FetchUserRequest, FetchUserSuccess,
-    FetchUserSuccessPayload, SetUserPatternPayload, SetUserPattern, SetSuggestedUsers, setSuggestedUsersPayload
+    FetchUserSuccessPayload, SetUserPatternPayload, SetUserPattern, SetSuggestedUsers, SetSuggestedUsersPayload, SetUserTabIndex, SetUserTabIndexPayload
 } from "../types/user";
-import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_SUGGESTED_USERS, SET_USER_PATTERN } from "./actionTypes";
+import { FETCH_USER_FAILURE, FETCH_USER_REQUEST, FETCH_USER_SUCCESS, SET_SUGGESTED_USERS, SET_USER_PATTERN, SET_USER_TAB_INDEX } from "./actionTypes";
 
 
 export const fetchUserRequest = (): FetchUserRequest => ({
@@ -25,8 +25,13 @@ export const setUserPattern = (payload: SetUserPatternPayload): SetUserPattern =
     payload
 })
 
-export const setSuggestedUsers = (payload: setSuggestedUsersPayload): SetSuggestedUsers => ({
+export const setSuggestedUsers = (payload: SetSuggestedUsersPayload): SetSuggestedUsers => ({
     type: SET_SUGGESTED_USERS,
+    payload
+})
+
+export const setUserTabIndex = (payload: SetUserTabIndexPayload): SetUserTabIndex => ({
+    type: SET_USER_TAB_INDEX,
     payload
 })
 
