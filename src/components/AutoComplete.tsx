@@ -41,7 +41,7 @@ class AutoComplete extends Component<AutoCompleteProps, AutoCompleteState> {
   private getMatched(pattern: string): IUser[] {
     if (!!!pattern) return [];
     return this.props.user.users.filter((item: IUser) =>
-      item.username.startsWith(pattern)
+      item.username.toLowerCase().startsWith(pattern.toLowerCase())
     );
   }
   render(): React.ReactNode {
