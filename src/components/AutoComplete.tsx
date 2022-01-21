@@ -47,17 +47,20 @@ class AutoComplete extends Component<AutoCompleteProps> {
   handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     const { tabIndex, suggestedUsers } = this.props.user;
 
+    //Handling arrow key down
     if (event.key === "ArrowDown") {
       this.props.setUserTabIndex({
         tabIndex: tabIndex >= suggestedUsers.length - 1 ? 0 : tabIndex + 1,
       });
     }
+    //Handling arrow key up
     if (event.key === "ArrowUp") {
       this.props.setUserTabIndex({
         tabIndex: tabIndex <= 0 ? suggestedUsers.length - 1 : tabIndex - 1,
       });
     }
 
+    //Handling Enter key Down
     if (event.key === "Enter") {
       if (suggestedUsers.length > 0 && tabIndex !== INITIAL_TAB_INDEX) {
         const { username } = suggestedUsers[tabIndex];
@@ -67,6 +70,7 @@ class AutoComplete extends Component<AutoCompleteProps> {
       }
     }
 
+    //Handling backspace Key Down
     if (event.key === "Backspace") {
       this.props.setUserTabIndex({
         tabIndex: INITIAL_TAB_INDEX,
@@ -105,13 +109,15 @@ class AutoComplete extends Component<AutoCompleteProps> {
     );
   }
 }
-
+// Mapping dispatching functions as properties to the component's
 const mapDispatchToProps = {
   fetchUserRequest,
   setUserPattern,
   setSuggestedUsers,
   setUserTabIndex,
 };
+
+// Denfing mapping application's state as properties to the component's
 const mapStateToProps = (state: appState) => ({
   user: state.user,
 });

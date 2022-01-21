@@ -24,6 +24,7 @@ class List extends React.Component<ListProps> {
   }
 }
 
+// Denfing mapping application's state as properties to the component's
 const mapStateToProps = (state: appState) => ({
   user: state.user,
 });

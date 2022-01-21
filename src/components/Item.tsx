@@ -71,10 +71,12 @@ class Item extends React.Component<ItemProps> {
     );
   }
 }
+// Denfing mapping application's state as properties to the component's
 const mapStateToProps = (state: appState) => ({
   user: state.user,
 });
 
+// Mapping dispatching functions as properties to the component's
 const mapDispatchToProps = {
   setUserPattern,
   setSuggestedUsers,
