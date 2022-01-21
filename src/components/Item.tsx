@@ -29,7 +29,6 @@ class Item extends React.Component<ItemProps> {
   handleClick(event: React.MouseEvent<HTMLDivElement>): void {
     const username = (event.target as Element).id;
 
-    console.log(event.target);
     this.props.setUserPattern({ pattern: username });
   }
 
@@ -45,10 +44,10 @@ class Item extends React.Component<ItemProps> {
     //getting the head and tail of username
     const [head, tail] = [value.slice(0, length), value.slice(length)];
     return (
-      <div id={value}>
-        <b>{head}</b>
+      <p id={value}>
+        <b id={value}>{head}</b>
         <>{tail}</>
-      </div>
+      </p>
     );
   }
   /**

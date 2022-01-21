@@ -94,7 +94,7 @@ class AutoComplete extends Component<AutoCompleteProps> {
           id="user"
           onKeyDown={this.handleKeyDown.bind(this)}
         />
-        <input className="button info" type="button" value="Submit" />
+
         {!!this.props.user.suggestedUsers.length ? <List /> : null}
       </div>
     );
