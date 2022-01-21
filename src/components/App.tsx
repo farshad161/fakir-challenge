@@ -1,11 +1,23 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import Card from "./card/Card";
 import Content from "./card/Content";
 import Title from "./card/Title";
 import AutoComplete from "./AutoComplete";
 import Button from "./Button";
+import { appState } from "../reducers/rootReducer";
+import {
+  SetUserPattern,
+  SetUserPatternPayload,
+  UserState,
+} from "../types/user";
+import { setUserPattern } from "../actions";
 
-class App extends React.Component {
+interface appProps {
+  user: UserState;
+  setUserPattern: (pattern: SetUserPatternPayload) => SetUserPattern;
+}
+class App extends React.Component<appProps> {
   render(): React.ReactNode {
     return (
       <div className="app">
@@ -13,12 +25,25 @@ class App extends React.Component {
           <Title>Auto Complete</Title>
           <Content>
             <AutoComplete />
-            <Button type="button" value="submit" handler={(): void => {}} />
+            <Button
+              type="button"
+              value="submit"
+              handler={(): void => {
+                alert(`Username: ${this.props.user.pattern} was submitted.`);
+                this.props.setUserPattern({ pattern: "" });
+              }}
+            />
           </Content>
         </Card>
       </div>
     );
   }
 }
+const mapStateToProps = (state: appState) => ({
+  user: state.user,
+});
 
-export default App;
+const mapDispatchToProps = {
+  setUserPattern,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
