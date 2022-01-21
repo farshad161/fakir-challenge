@@ -29,8 +29,10 @@ class App extends React.Component<appProps> {
               type="button"
               value="submit"
               handler={(): void => {
-                alert(`Username: ${this.props.user.pattern} was submitted.`);
-                this.props.setUserPattern({ pattern: "" });
+                if (!!this.props.user.pattern) {
+                  alert(`Username: ${this.props.user.pattern} was submitted.`);
+                  this.props.setUserPattern({ pattern: "" });
+                }
               }}
             />
           </Content>
