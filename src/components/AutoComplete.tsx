@@ -59,9 +59,13 @@ class AutoComplete extends Component<AutoCompleteProps> {
     }
 
     if (event.key === "Enter") {
-      this.props.setUserPattern({
-        pattern: suggestedUsers[tabIndex]?.username,
-      });
+      if (suggestedUsers.length > 0) {
+        const { username } = suggestedUsers[tabIndex];
+        this.props.setUserPattern({
+          pattern: username,
+        });
+        // if()
+      }
     }
 
     if (event.key === "Backspace") {
