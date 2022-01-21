@@ -1,0 +1,19 @@
+@import "./button.css";
+@import "./autoComplete.css";
+@import "./card.css";
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  background-color: #f3f1f1;
+}
+
+.app {
+  position: relative;
+  height: 100%;
+  padding: 10px 10px;
+}

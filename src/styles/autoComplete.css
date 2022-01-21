@@ -1,0 +1,42 @@
+.input-text {
+  padding: 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+}
+
+.autoComplete {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  width: 80%;
+}
+
+.list {
+  margin-top: 8px;
+  border: 1px solid rgb(180, 179, 179);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.item {
+  padding: 3px 8px;
+  border-bottom: 1px solid #ccc;
+}
+.item p {
+  margin: 0;
+  padding: 10px 0;
+}
+.item:hover {
+  background-color: #ccc;
+  cursor: pointer;
+}
+.item:last-child {
+  border-bottom: none;
+}
+
+.selected {
+  background-color: dodgerblue !important;
+}
+.selected p {
+  color: white;
+}

@@ -1,0 +1,20 @@
+.btn input[type="button"] {
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  border: 1px solid black;
+}
+
+.btn-info input[type="button"] {
+  background-color: DodgerBlue;
+  border-color: dodgerblue;
+  color: white;
+}
+
+.btn-info input[type="button"]:hover {
+  background-color: rgb(109, 180, 252);
+  border-color: rgb(109, 180, 252);
+}
